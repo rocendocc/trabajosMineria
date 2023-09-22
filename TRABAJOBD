@@ -1,0 +1,38 @@
+print("-----Programa que registra dantos-----")
+print("1 ... Deposito")
+print("2 ... Prestamo")
+print("3 ... Salir\n")
+def buscarcliente():
+    idcliente=int(input("Dame le ID del cliente: "))
+    import mysql.connector
+    conexion = mysql.connector.connect (user = 'root', password = '', host = 'localhost', database = 'banco')
+    cursor  = conexion.cursor()
+    idcliente = dato
+    consulta = "SELECT COUNT(*) FROM cliente WHERE id = %s"
+    cursor.execute(consulta,(dato,))
+    resultado = cursor.fetchone()
+    if resultado[0] > 0:
+        print("El dato existe en la tabla.")
+    else:
+        print("El dato no existe en la tabla2.")
+
+
+while True:
+    try:
+        opc = int(input("Que opción desea realizar (1-2-3): "))
+    except ValueError:
+        print("La opción no es valida, ingrese un dato válido1")
+    else:
+        while True:
+            if opc == 1:
+                print("-----Programa que ingresa datos en tabla Deposito-----\n")
+                buscarcliente()   
+                exit()
+            elif opc == 2:
+                print("-----Programa que ingresa datos en tabla Prestamo-----\n")
+                exit()
+            elif opc == 3:
+                exit()
+            else:
+                print("Opcion no válida, ingrese un dato válido")
+            break
