@@ -1,0 +1,263 @@
+import mysql.connector
+conexion = mysql.connector.connect (user = 'root', password = '', host = 'localhost', database = 'banco')
+cursor  = conexion.cursor()
+
+def BuscarCliente():
+    while True:   
+        try:
+            idcliente=int(input("Dame el ID del cliente: "))
+        except ValueError:
+            print("El dato no existe en la tabla, Ingrese nuevamente el Id")
+        else:
+            consulta = "SELECT id FROM cliente WHERE id = %s"
+            cursor.execute(consulta,(idcliente,))
+            clientes = cursor.fetchall()
+            for item in clientes:
+                item
+            try:
+                item [0] >= 0
+                print("El dato existe en la tabla.")
+            except NameError:
+                print("El dato no existe en la tabla, Ingrese nuevamente el Id")
+            else:
+                consulta2 = "SELECT nombrecliente FROM cliente WHERE id = %s"
+                cursor.execute(consulta2,(idcliente,))
+                clientes = cursor.fetchall()
+                for item in clientes:
+                    print("EL nombre del cliente es:",item)
+                return idcliente
+                BuscarSucursal()
+                break
+        
+def BuscarSucursal():
+    while True:   
+        try:
+            idsucursal=int(input("Dame el ID de la sucursal: "))
+        except ValueError:
+            print("El dato no existe en la tabla, Ingrese nuevamente el Id")
+        else:
+            consulta = "SELECT id FROM sucursal WHERE id = %s"
+            cursor.execute(consulta,(idsucursal,))
+            sucursal = cursor.fetchall()
+            for item in sucursal:
+                item
+            try:
+                item [0] >= 0
+                print("El dato existe en la tabla.")
+            except NameError:
+                print("El dato no existe en la tabla, Ingrese nuevamente el Id")
+            else:
+                consulta2 = "SELECT activa FROM sucursal WHERE id = %s"
+                cursor.execute(consulta2,(idsucursal,))
+                sucursal = cursor.fetchall()
+                for item2 in sucursal:
+                    print(item2)
+                if item2 [0] != 0:
+                    consulta3 = "SELECT nombresucursal FROM sucursal WHERE id = %s"
+                    cursor.execute(consulta3,(idsucursal,))
+                    sucursal = cursor.fetchall()
+                    for item in sucursal:
+                        print("El nombre es:",item)
+                    return idsucursal
+                    break
+                else:
+                    print("La sucursal no se encuetra activa, ingrese otro Id")
+
+def Monto():
+    while True:
+        try:
+            MontoOperacion = float(input("Dame el monto de operacion: "))
+        except ValueError:
+            print("Ingrese una cantidad valida")
+        else:
+            if MontoOperacion > 0:
+                print("La cantidad es:",MontoOperacion)
+                return MontoOperacion
+                break
+            else: 
+                print("Ingrese una cantidad valida")
+
+def Anio1():
+    while True:
+        try:
+            Anio = int(input("Dame el Año: "))
+        except ValueError:
+            print("Dato no valido")
+        else: 
+            if Anio >= 2023 and Anio <= 9999:
+                print("Ano: ",Anio)
+                return Anio
+                break
+            else: 
+                print("Ingrese un año valido")
+
+def Mes():
+    while True:
+        try:
+            Mes = int(input("Dame el mes en numero: "))
+        except ValueError:
+            print("Dato no valido")
+        else: 
+            if Mes >= 1 and Mes <= 12:
+                while True:
+                    try:
+                        Dia = int(input("Dame el dia en numero: "))
+                    except ValueError:
+                        print("Dato no valido")
+                    else: 
+                        if Mes == 1:
+                            if Dia > 0 and Dia <= 31:
+                                return Mes,Dia
+                                break
+                            else:
+                                print("Dia no valido")
+                        elif Mes == 2:
+                            if Dia > 0 and Dia <= 28:
+                                return Mes,Dia
+                                print(Dia)
+                                break
+                            else:
+                                print("Dia no valido")
+                        elif Mes == 3:
+                            if Dia > 0 and Dia <= 31:
+                                return Mes,Dia
+                                print(Dia)
+                                break
+                            else:
+                                print("Dia no valido")
+                        elif Mes == 4:
+                            if Dia > 0 and Dia <= 30:
+                                return Mes,Dia
+                                print(Dia)
+                                break
+                            else:
+                                print("Dia no valido")                    
+                        elif Mes == 5:
+                            if Dia > 0 and Dia <= 31:
+                                return Mes,Dia
+                                print(Dia)
+                                break
+                            else:
+                                print("Dia no valido")
+                        elif Mes == 6:
+                            if Dia > 0 and Dia <= 30:
+                                return Mes,Dia
+                                print(Dia)
+                                break
+                            else:
+                                print("Dia no valido")                   
+                        elif Mes == 7:
+                            if Dia > 0 and Dia <= 31:
+                                return Mes,Dia
+                                print(Dia)
+                                break
+                            else:
+                                print("Dia no valido")                   
+                        elif Mes == 8:
+                            if Dia > 0 and Dia <= 31:
+                                return Mes,Dia
+                                print(Dia)
+                                break
+                            else:
+                                print("Dia no valido")
+                        elif Mes == 9:
+                            if Dia > 0 and Dia <= 30:
+                                return Mes,Dia
+                                print(Dia)
+                                break
+                            else:
+                                print("Dia no valido")
+                        elif Mes == 10:
+                            if Dia > 0 and Dia <= 31:
+                                return Mes,Dia
+                                print(Dia)
+                                break
+                            else:
+                                print("Dia no valido")
+                        elif Mes == 11:
+                            if Dia > 0 and Dia <= 30:
+                                return Mes,Dia
+                                print(Dia)
+                                break
+                            else:
+                                print("Dia no valido")        
+                        elif Mes == 12:
+                            if Dia > 0 and Dia <= 31:
+                                return Mes,Dia
+                                print(Dia)
+                                break
+                            else:
+                                print("Dia no valido")
+                        else: 
+                            print("Ingrese un Dia valido")
+                break
+            else: 
+                print("Ingrese un mes valido")
+
+def Hora():
+    while True:
+        try:
+            Hora = int(input("Dame la hora en formato de 24 horas: "))
+        except ValueError:
+            print("Valor no Valido")
+        else:
+            if Hora >= 0 and Hora <= 24:
+                while True:
+                    try:
+                        Minutos = int(input("Dame los minutos: "))
+                    except ValueError:
+                        print("Valor no valido")
+                    else:
+                        if Minutos >= 0 and Minutos <= 59:
+                            while True:
+                                try:
+                                    Segundos = int(input("Dame los segundos: "))
+                                except ValueError:
+                                    print("Valor no valido")
+                                else:
+                                    if Segundos >=0 and Segundos <=59:
+                                        return Hora,Minutos,Segundos
+                                        print(Hora,":",Minutos,":",Segundos)
+                                        exit()
+                        else:
+                            print("Minutos no validos")
+            else:
+                print("Hora no valida")
+
+def InsertarDeposito(idcliente,idsucursal,MontoOperacion,Anio,Mes,Dia,Hora,Minutos,Segundos):
+    sql = "INSERT INTO deposito (fechadeposito,importedeposito,tipomoneda,formadeposito,idcliente,idsucursal,idbanquero,fecharegistro) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
+    val = (f"{Anio}-{Mes}-{Dia} {Hora}:{Minutos}:{Segundos}",f"{MontoOperacion}","1","1",f"{idcliente}",f"{idsucursal}","3",f"{Anio}-{Mes}-{Dia} {Hora}:{Minutos}:{Segundos}")
+    cursor.execute(sql,val)
+    conexion.commit()
+    print("Regitro insertado")
+
+print("-----Programa que registra datos-----")
+print("1 ... Deposito")
+print("2 ... Prestamo")
+print("3 ... Salir\n")
+
+while True:
+    try:
+        opc = int(input("Que opción desea realizar (1-2-3): "))
+    except ValueError:
+        print("La opción no es valida, ingrese un dato válido1")
+    else:
+        while True:
+            if opc == 1:
+                print("-----Programa que ingresa datos en tabla Deposito-----\n")
+                idcliente = BuscarCliente()
+                idsucursal = BuscarSucursal()
+                MontoOperacion = Monto()
+                Anio = Anio1()
+                Mes,Dia = Mes()
+                Hora,Minutos,Segundos = Hora()
+                InsertarDeposito(idcliente,idsucursal,MontoOperacion,Anio,Mes,Dia,Hora,Minutos,Segundos)
+                exit()
+            elif opc == 2:
+                print("-----Programa que ingresa datos en tabla Prestamo-----\n")
+                exit()
+            elif opc == 3:
+                exit()
+            else:
+                print("Opcion no válida, ingrese un dato válido")
+            break
