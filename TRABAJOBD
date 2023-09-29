@@ -22,10 +22,11 @@ def BuscarCliente():
                 consulta2 = "SELECT nombrecliente FROM cliente WHERE id = %s"
                 cursor.execute(consulta2,(idcliente,))
                 clientes = cursor.fetchall()
-                for item in clientes:
-                    print("EL nombre del cliente es:",item)
-                print("\n","-"*53,"\n")
-                return idcliente
+                for item1 in clientes:
+                    print("EL nombre del cliente es:",item1)
+                print("\n")
+                print("-"*53,"\n")
+                return idcliente,item1
                 BuscarSucursal()
                 break
         
@@ -57,7 +58,8 @@ def BuscarSucursal():
                     sucursal = cursor.fetchall()
                     for item in sucursal:
                         print("El nombre es:",item)
-                    print("\n","-"*53,"\n")
+                    print("\n")
+                    print("-"*53,"\n")
                     return idsucursal
                     break
                 else:
@@ -71,7 +73,8 @@ def Monto():
             print("Ingrese una cantidad valida")
         else:
             if MontoOperacion > 0:
-                print("\n","-"*53,"\n")
+                print("\n")
+                print("-"*53,"\n")
                 return MontoOperacion
                 break
             else: 
@@ -204,7 +207,8 @@ def Hora():
                                     print("Valor no valido")
                                 else:
                                     if Segundos >=0 and Segundos <=59:
-                                        print("\n","-"*53,"\n")
+                                        print("\n")
+                                        print("-"*53,"\n")
                                         return Hora,Minutos,Segundos
                                         exit()
                         else:
@@ -228,6 +232,32 @@ def InsertarPrestamo(idcliente,idsucursal,MontoOperacion,Anio,Mes,Dia,Hora,Minut
     print("Regitro insertado en tabla Prestamo\n")
     print("-"*53,"\n")
 
+def MuestraDeposito(idcliente,item1):
+    consu= "SELECT COUNT(*) FROM deposito WHERE idcliente = %s"
+    cursor.execute(consu,(idcliente,))
+    consu1 = cursor.fetchone()
+    print("La cantidad de depositos de",item1,"es de:",consu1)
+    print("Son los siguientes:")
+    print("numdeposito, fechadeposito, importedeposito, tipomoneda, formadeposito, idcliente, idsucursal, idbanquero, fecharegistro")
+    sql = "SELECT * FROM deposito WHERE idcliente = %s"
+    cursor.execute(sql,(idcliente,))
+    for item in cursor:
+        print(item)
+    print("-"*120,"\n")
+
+def MuestraPrestamo(idcliente,item1):
+    consu= "SELECT COUNT(*) FROM prestamo WHERE idcliente = %s"
+    cursor.execute(consu,(idcliente,))
+    consu1 = cursor.fetchone()
+    print("La cantidad de prestamos de",item1,"es de:",consu1)
+    print("Son los siguientes:")
+    print("numprestamo, fechaautorizacion, importeprestamo, tipomoneda, idcliente, idsucursal, idbanquero, fecharegistro")
+    sql = "SELECT * FROM prestamo WHERE idcliente = %s"
+    cursor.execute(sql,(idcliente,))
+    for item in cursor:
+        print(item)
+    print("-"*120,"\n")
+
 while True:
     try:
         print("-----Programa que registra datos-----")
@@ -241,22 +271,24 @@ while True:
         while True:
             if opc == 1:
                 print("\n-----Programa que ingresa datos en tabla Deposito-----\n")
-                idcliente = BuscarCliente()
+                idcliente,item1 = BuscarCliente()
                 idsucursal = BuscarSucursal()
                 MontoOperacion = Monto()
                 Anio = Anio1()
                 Mes,Dia = Mes()
                 Hora,Minutos,Segundos = Hora()
                 InsertarDeposito(idcliente,idsucursal,MontoOperacion,Anio,Mes,Dia,Hora,Minutos,Segundos)
+                MuestraDeposito(idcliente,item1)
             elif opc == 2:
                 print("\n-----Programa que ingresa datos en tabla Prestamo-----\n")
-                idcliente = BuscarCliente()
+                idcliente,item1 = BuscarCliente()
                 idsucursal = BuscarSucursal()
                 MontoOperacion = Monto()
                 Anio = Anio1()
                 Mes,Dia = Mes()
                 Hora,Minutos,Segundos = Hora()
                 InsertarPrestamo(idcliente,idsucursal,MontoOperacion,Anio,Mes,Dia,Hora,Minutos,Segundos)
+                MuestraPrestamo(idcliente,item1)
             elif opc == 3:
                 exit()
             else:
